@@ -19,15 +19,15 @@ class largeIntegers {
         void print();
         bool isNegative = false;
     private:
+        int _remainder = 0;
+        vector<int> num;
         vector<int> add(vector<int> operand);
         vector<int> subtract(vector<int> operand);
         vector<vector<int>> multiply(vector<int> larger, vector<int> smaller);
-        bool greaterThan(vector<int> operand);
-        void leftPad(int totalSize);
         vector<int> leftPad(vector<int> operand, int totalSize);
-        vector<int> num;
+        bool _greaterThan(largeIntegers operand);
+        bool greaterThan(vector<int> operand);
         void clearLeadingZeroes();
-        int _remainder = 0;
 };
 
 #endif

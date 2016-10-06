@@ -83,7 +83,7 @@ largeIntegers* largeIntegers::multiply(largeIntegers operand) {
     if ((!isNegative && operand.isNegative) || (isNegative && operand.isNegative))
         isNegative = !isNegative;
 
-    if (greaterThan(operand)) {
+    if (_greaterThan(operand)) {
         products = multiply(num, operand.value());
     }
     else {
@@ -101,6 +101,10 @@ largeIntegers* largeIntegers::multiply(largeIntegers operand) {
     return this;
 }
 
+/**
+ * Takes a `largeIntegers` as input, inverts the sign, and returns a pointer to itself
+ * @return Pointer to class instance to allow method chaining
+ */
 largeIntegers* largeIntegers::inverse() {
     isNegative = !isNegative;
     return this;
@@ -137,6 +141,11 @@ void largeIntegers::print() {
     cout << endl;
 }
 
+/**
+ * Private method used internally to add the value of the input param to `num`
+ * @param vector<int> operand The value to add to `num`
+ * @return vector<int> The value of `num` + input param
+ */
 vector<int> largeIntegers::add(vector<int> operand) {
     _remainder = 0;
     vector<int> sum;
@@ -161,7 +170,7 @@ vector<int> largeIntegers::add(vector<int> operand) {
     else {
         sum.reserve(operand.size() + 1);
         it = sum.begin();
-        leftPad(operand.size());
+        num = leftPad(num, operand.size());
         for (int i = operand.size() - 1; i >= 0; i--) {
             x = _remainder + operand[i] + num[i];
             _remainder = 0;
@@ -178,6 +187,11 @@ vector<int> largeIntegers::add(vector<int> operand) {
     return sum;
 }
 
+/**
+ * Private method used internally to subtract the value of the input param from `num`
+ * @param vector<int> operand The value to subtract from `num`
+ * @return vector<int> The value of `num` - input param
+ */
 vector<int> largeIntegers::subtract(vector<int> operand) {
     vector<int> diff;
     diff.reserve(100);
@@ -195,7 +209,7 @@ vector<int> largeIntegers::subtract(vector<int> operand) {
         }
     }
     else {
-        leftPad(operand.size());
+        num = leftPad(num, operand.size());
         for (int i = operand.size() - 1; i >= 0; i--) {
             if (operand[i] < num[i]) {
                 operand[i] += 10;
@@ -209,6 +223,14 @@ vector<int> largeIntegers::subtract(vector<int> operand) {
     return diff;
 }
 
+/**
+ * Private method used internally to multiply two integer vectors
+ * @param vector<int> larger The larger input vector (unsigned)
+ * @param vector<int> smaller The smaller input vector (unsigned)
+ * @return vector<vector<int>> A vector of vectors representing the products of each
+ *     position of the input vectors (final product requires the addition of each
+ *     element in the vector)
+ */
 vector<vector<int>> largeIntegers::multiply(vector<int> larger, vector<int> smaller) {
     const int LARGER = larger.size() - 1;
     const int SMALLER = smaller.size() - 1;
@@ -238,6 +260,9 @@ vector<vector<int>> largeIntegers::multiply(vector<int> larger, vector<int> smal
     return collection;
 }
 
+/**
+ * Private method used to clear all leading zeroes from num
+ */
 void largeIntegers::clearLeadingZeroes() {
     if (num[0] != 0) return;
     auto it = num.begin();
@@ -247,6 +272,13 @@ void largeIntegers::clearLeadingZeroes() {
     if (num[0] == 0) isNegative = false;
 }
 
+/**
+ * Private method used to add leading zeroes to an integer vector
+ * @param vector<int> operand Vector to perform operation on
+ * @param int totalSize The total size the output vector should be after adding
+ *   the leading zeroes
+ * @return vector<int> Vector of integers with leading zeroes added
+ */
 vector<int> largeIntegers::leftPad(vector<int> operand, int totalSize) {
     operand.reserve(totalSize);
     auto it = operand.begin();
@@ -256,20 +288,59 @@ vector<int> largeIntegers::leftPad(vector<int> operand, int totalSize) {
     return operand;
 }
 
-void largeIntegers::leftPad(int totalSize) {
-    auto it = num.begin();
-    while (num.size() < totalSize) {
-        num.insert(it, 0);
+/**
+ * Public method used to compare two largeIntegers (both size and sign)
+ * @param largeIntegers operand The comparing largeIntegers
+ * @return bool The truth value for this > operand
+ */
+bool largeIntegers::greaterThan(largeIntegers operand) {
+    if (num.size() > operand.value().size()) {
+        if (isNegative)
+            return false;
+        return true;
     }
+    if (num.size() < operand.value().size()) {
+        if (operand.isNegative)
+            return true;
+        return false;
+    }
+    if (num > operand.value()) {
+        if (isNegative)
+            return false;
+        return true;
+    }
+    if (num < operand.value()) {
+        if (operand.isNegative)
+            return true;
+        return false;
+    }
+    if ((isNegative && operand.isNegative) || (!isNegative && !operand.isNegative))
+        return false;
+    if (isNegative && !operand.isNegative)
+        return false;
+    return true;
 }
 
-bool largeIntegers::greaterThan(largeIntegers operand) {
+/**
+ * Private method used internally to perform an unsigned comparison between this
+ *   and another `largeIntegers`
+ * @param largeIntegers operand Comparator
+ * @return bool Truth value for this > operand (unsigned)
+ */
+bool largeIntegers::_greaterThan(largeIntegers operand) {
     if (num.size() > operand.value().size())
         return true;
     if (num.size() < operand.value().size())
         return false;
     return num > operand.value();
 }
+
+/**
+ * Private method used internally to perform an unsigned comparison between `num`
+ *   and another integer vector
+ * @param vector<int> operand Comparator
+ * @return bool Truth value for this > operand (unsigned)
+ */
 bool largeIntegers::greaterThan(vector<int> operand) {
     if (num.size() > operand.size())
         return true;

@@ -2,11 +2,10 @@
  * Program Name: Project 1, Extra Credit
  * Developer: Derek P Sifford
  * Date: 01.10.2016
- * Description: Calculate sum and/or product of large integers
+ * Description: Calculate sum, difference, and/or product of large integers
  */
 #include <iostream>
 #include <string>
-#include <vector>
 #include <cassert>
 #include "largeintegers.h"
 using namespace std;
@@ -16,6 +15,38 @@ void runTests();
 int main() {
 
     runTests();
+
+    string input1;
+    string input2;
+
+    cout << "Enter an integer string (value a): " << endl;
+    cin >> input1;
+
+    cout << "Enter another integer string (value b): " << endl;
+    cin >> input2;
+
+    largeIntegers a(input1);
+    largeIntegers b(input2);
+
+    cout << "a + b = " << a.add(b)->stringValue() << endl;
+    a.set(input1);
+    b.set(input2);
+
+    cout << "a - b = " << a.subtract(b)->stringValue() << endl;
+    a.set(input1);
+    b.set(input2);
+
+    cout << "a * b = " << a.multiply(b)->stringValue() << endl;
+    a.set(input1);
+    b.set(input2);
+
+    string boolString;
+    if (a.greaterThan(b))
+        boolString = "a is greater than b";
+    else
+        boolString = "a is less than b";
+
+    cout << boolString << endl;
 
     return 0;
 }
@@ -46,6 +77,19 @@ void runTests() {
     assert(a.multiply(b)->stringValue() == "1219326320073159566072245112635269");
     assert(b.inverse()->multiply(a)->stringValue() == "-120427290901529988367476356871223724848101638891241");
     assert(a.inverse()->multiply(b)->stringValue() == "146840165451342451431369719791286896744379256673748165920225623111015941900791778829");
+
+    // `greaterThan` methods
+    a.set("1");
+    b.set("-1");
+    assert(a.greaterThan(b) == 1);
+    a.set("-1");
+    assert(a.greaterThan(b) == 0);
+    a.set("7982479824");
+    b.set("75983457985");
+    assert(a.greaterThan(b) == 0);
+    a.set("7982479824");
+    b.set("-798245532479824");
+    assert(a.greaterThan(b) == 1);
 
     // Variety of chained methods
     a.set("91826928346");
