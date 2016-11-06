@@ -34,7 +34,7 @@ bool LineType::operator==(const LineType &line) const {
 }
 
 bool LineType::operator||(const LineType &line) const {
-    return (this->slope() == line.slope()) || (this->b == 0 and line.b == 0);
+    return (this->slope() == line.slope()) || (this->b == 0 && line.b == 0);
 }
 
 bool LineType::operator&&(const LineType &line) const {
