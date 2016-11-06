@@ -12,11 +12,11 @@ ostream &operator<<(ostream &os, const MatrixType &matrix) {
 }
 
 MatrixType::MatrixType(vector<vector<double>> matrix) {
+    dims.rows = matrix.size();
     dims.cols = 0;
     for (auto i : matrix) {
         if (i.size() > dims.cols)
             dims.cols = i.size();
-        dims.rows++;
     }
     for (size_t i = 0; i < matrix.size(); i++)
         matrix[i].resize(dims.cols, 0);
@@ -24,34 +24,36 @@ MatrixType::MatrixType(vector<vector<double>> matrix) {
 }
 
 const MatrixType &MatrixType::operator+(const MatrixType &matrix) {
-    if (this->dims != matrix.dims)
+    if (dims != matrix.dims) {
+        cout << dims.cols << " " << dims.rows << " " << matrix.dims.cols << " " << matrix.dims.rows << endl;
         throw out_of_range("Matrix dimentions must be equal");
-    for (size_t i = 0; i < this->dims.rows; i++) {
-        for (size_t j = 0; j < this->dims.cols; j++) {
-            this->m[i][j] += matrix.m[i][j];
+    }
+    for (size_t i = 0; i < dims.rows; i++) {
+        for (size_t j = 0; j < dims.cols; j++) {
+            m[i][j] += matrix.m[i][j];
         }
     }
     return *this;
 }
 
 const MatrixType &MatrixType::operator-(const MatrixType &matrix) {
-    if (this->dims != matrix.dims)
+    if (dims != matrix.dims)
         throw out_of_range("Matrix dimentions must be equal");
-    for (size_t i = 0; i < this->dims.rows; i++)
-        for (size_t j = 0; j < this->dims.cols; j++)
-            this->m[i][j] -= matrix.m[i][j];
+    for (size_t i = 0; i < dims.rows; i++)
+        for (size_t j = 0; j < dims.cols; j++)
+            m[i][j] -= matrix.m[i][j];
     return *this;
 }
 
 const MatrixType &MatrixType::operator*(const MatrixType &matrix) {
-    if (this->dims.cols != matrix.dims.rows)
+    if (dims.cols != matrix.dims.rows)
         throw out_of_range("Columns of LHS must match rows of RHS");
     vector<vector<double>> product;
-    product.resize(matrix.dims.cols, vector<double>(this->dims.rows, 0));
-    for (size_t leftRow = 0; leftRow < this->dims.rows; leftRow++)
+    product.resize(matrix.dims.cols, vector<double>(dims.rows, 0));
+    for (size_t leftRow = 0; leftRow < dims.rows; leftRow++)
         for (size_t rightCol = 0; rightCol < matrix.dims.cols; rightCol++)
-            for (size_t leftCol = 0; leftCol < this->dims.cols; leftCol++)
-                product[leftRow][rightCol] += this->m[leftRow][leftCol] * matrix.m[leftCol][rightCol];
-    this->m = product;
+            for (size_t leftCol = 0; leftCol < dims.cols; leftCol++)
+                product[leftRow][rightCol] += m[leftRow][leftCol] * matrix.m[leftCol][rightCol];
+    m = product;
     return *this;
 }
