@@ -1,3 +1,9 @@
+/**
+ * Program Name: main.cpp
+ * Developer: Derek P Sifford
+ * Date: 17.11.2016
+ * Description: Temperature class implementation tests
+ */
 #include <iostream>
 #include <cassert>
 #include "temp.h"

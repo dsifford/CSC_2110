@@ -1,3 +1,9 @@
+/**
+ * Program Name: main.cpp
+ * Developer: Derek P Sifford
+ * Date: 17.11.2016
+ * Description: Create and test a Money class
+ */
 #include <iostream>
 #include <cassert>
 #include "money.h"
