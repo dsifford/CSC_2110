@@ -11,7 +11,6 @@
 using namespace std;
 
 int main() {
-
     double numTickets, price, totalTickets = 0, totalSales = 0;
     string line;
     fstream input;
@@ -26,8 +25,8 @@ int main() {
     input.close();
 
     cout << fixed << setprecision(2)
-    << "Total tickets sold: " << totalTickets << endl
-    << "Total sales: " << totalSales << endl;
+         << "Total tickets sold: " << totalTickets << endl
+         << "Total sales: " << totalSales << endl;
 
     return 0;
 }
