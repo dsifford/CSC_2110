@@ -19,9 +19,7 @@ int main() {
     return 0;
 }
 
-
 int problemOne() {
-
     int
         landArea,
         numVegetables,
@@ -53,7 +51,6 @@ int problemOne() {
         cout << "Calculating profit margins for a single vegetable using 100% land area" << endl;
         calculateFarmRevenue(totalRevenue, totalCost, 100, landArea);
     }
-
     cout
         << fixed << showpoint << setprecision(2)
         << "=================================" << endl
@@ -65,13 +62,10 @@ int problemOne() {
     else {
         cout << "Total Loss: $" << totalCost - totalRevenue << endl;
     }
-
     return 0;
 }
 
-
 void calculateFarmRevenue(double &totalRevenue, double &totalCost, int percentArea, int landArea) {
-
     double
         correctedArea = static_cast<double>(landArea) * (static_cast<double>(percentArea) / 100.0),
         seedCost,
@@ -106,10 +100,7 @@ void calculateFarmRevenue(double &totalRevenue, double &totalCost, int percentAr
     totalRevenue += sellingPrice * correctedArea;
 }
 
-
-
 int problemTwo() {
-
     int months = 0;
 
     double
@@ -133,7 +124,6 @@ int problemTwo() {
         cout << "The monthly payment is too low. This load would never be paid off. Try again." << endl;
         return 0;
     }
-
     while (loanAmount > 0) {
         loanAmount += (loanAmount * monthlyRate);
         loanAmount -= monthlyPayment;
