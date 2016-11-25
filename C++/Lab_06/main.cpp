@@ -7,8 +7,7 @@
 #include <iostream>
 using namespace std;
 
-void inputFunc(double& current, double& oneYear, double& twoYear) {
-
+void inputFunc(double &current, double &oneYear, double &twoYear) {
     cout << "Enter the current price" << endl;
     cin >> current;
 
@@ -17,7 +16,6 @@ void inputFunc(double& current, double& oneYear, double& twoYear) {
 
     cout << "Enter the price two years ago" << endl;
     cin >> twoYear;
-
 }
 
 double calculate(double current, double past) {
@@ -29,12 +27,10 @@ void output(double result1, double result2) {
         cout << "Inflation is increasing" << endl;
         return;
     }
-
     if (result2 > result1) {
         cout << "Inflation is decreasing" << endl;
         return;
     }
-
     cout << "Inflation is the exact same" << endl;
 }
 
