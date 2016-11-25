@@ -9,7 +9,6 @@
 using namespace std;
 
 int main() {
-
     double a, b, c, discriminant;
 
     cout << "Enter value of 'a': ";
@@ -27,18 +26,16 @@ int main() {
         cout << "Equation has two complex roots" << endl;
         return 0;
     }
-
     if (discriminant == 0) {
         cout << "Equation has one real root" << endl;
-        cout << "Root: " << -b/(2*a) << endl;
+        cout << "Root: " << -b / (2 * a) << endl;
         return 0;
     }
-
     cout << "Equation has two real roots" << endl;
     cout
         << "Roots: "
-        << (-b + sqrt(discriminant)) / (2*a) << ", "
-        << (-b - sqrt(discriminant)) / (2*a) << endl;
+        << (-b + sqrt(discriminant)) / (2 * a) << ", "
+        << (-b - sqrt(discriminant)) / (2 * a) << endl;
 
     return 0;
 }
