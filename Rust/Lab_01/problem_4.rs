@@ -37,7 +37,8 @@ fn main() {
 
     if side1.powi(2) == (side2.powi(2) + side3.powi(2)) {
         println!("The triangle is a right triangle");
-    } else {
+    }
+    else {
         println!("The triangle is not a right triangle");
     }
 }
